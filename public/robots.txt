@@ -4,5 +4,9 @@
 # User-agent: *
 # Disallow: /
 
+User-agent: *
+Disallow: /media_proxy/
+Disallow: /interact/
+
 User-agent: ia_archiver
 Disallow: /
