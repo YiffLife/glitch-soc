@@ -1,11 +1,14 @@
+import { defineMessages } from 'react-intl';
+
 import axios from 'axios';
 import { throttle } from 'lodash';
-import { defineMessages } from 'react-intl';
+
 import api from 'flavours/glitch/api';
 import { search as emojiSearch } from 'flavours/glitch/features/emoji/emoji_mart_search_light';
 import { tagHistory } from 'flavours/glitch/settings';
 import { recoverHashtags } from 'flavours/glitch/utils/hashtag';
 import resizeImage from 'flavours/glitch/utils/resize_image';
+
 import { showAlert, showAlertForError } from './alerts';
 import { useEmoji } from './emojis';
 import { importFetchedAccounts, importFetchedStatus } from './importer';
@@ -186,11 +189,19 @@ export function submitCompose(routerHistory) {
     // API call.
     let media_attributes;
     if (statusId !== null) {
-      media_attributes = media.map(item => ({
-        id: item.get('id'),
-        description: item.get('description'),
-        focus: item.get('focus'),
-      }));
+      media_attributes = media.map(item => {
+        let focus;
+
+        if (item.getIn(['meta', 'focus'])) {
+          focus = `${item.getIn(['meta', 'focus', 'x']).toFixed(2)},${item.getIn(['meta', 'focus', 'y']).toFixed(2)}`;
+        }
+
+        return {
+          id: item.get('id'),
+          description: item.get('description'),
+          focus,
+        };
+      });
     }
 
     api(getState).request({
@@ -405,7 +416,10 @@ export function initMediaEditModal(id) {
       id,
     });
 
-    dispatch(openModal('FOCAL_POINT', { id }));
+    dispatch(openModal({
+      modalType: 'FOCAL_POINT',
+      modalProps: { id },
+    }));
   };
 }
 
@@ -433,16 +447,12 @@ export function changeUploadCompose(id, params) {
     // Editing already-attached media is deferred to editing the post itself.
     // For simplicity's sake, fake an API reply.
     if (media && !media.get('unattached')) {
-      let { description, focus } = params;
-      const data = media.toJS();
-
-      if (description) {
-        data.description = description;
-      }
+      const { focus, ...other } = params;
+      const data = { ...media.toJS(), ...other };
 
       if (focus) {
-        focus = focus.split(',');
-        data.meta = { focus: { x: parseFloat(focus[0]), y: parseFloat(focus[1]) } };
+        const [x, y] = focus.split(',');
+        data.meta = { focus: { x: parseFloat(x), y: parseFloat(y) } };
       }
 
       dispatch(changeUploadComposeSuccess(data, true));
