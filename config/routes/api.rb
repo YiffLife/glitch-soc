@@ -124,6 +124,10 @@ namespace :api, format: false do
       resource :activity, only: [:show], controller: 'instances/activity'
     end
 
+    namespace :peers do
+      get :search, to: 'search#index'
+    end
+
     resource :domain_blocks, only: [:show, :create, :destroy]
 
     resource :directory, only: [:show]
@@ -298,7 +302,7 @@ namespace :api, format: false do
 
   namespace :web do
     resource :settings, only: [:update]
-    resource :embed, only: [:create]
+    resources :embeds, only: [:show]
     resources :push_subscriptions, only: [:create] do
       member do
         put :update
