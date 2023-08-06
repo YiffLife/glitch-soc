@@ -4,5 +4,10 @@ $ui-base-lighter-color: lighten($ui-base-color, 26%); // Lighter darkest
 $ui-primary-color: #c19ec6;            // Lighter
 $ui-secondary-color: #e5dbe7;        // Lightest
 $ui-highlight-color: #cb2bd9;
+$blurple-500: #cb2bd9;
+$classic-highlight-color: #cb2bd9;
+
+$ui-button-background-color: #cb2bd9;
+$ui-button-focus-background-color: #7d2885;
 
 @import 'flavours/glitch/styles/contrast';
