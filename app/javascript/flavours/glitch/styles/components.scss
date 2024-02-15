@@ -2855,7 +2855,7 @@ $ui-header-height: 55px;
         contain;
 
       @if $i != 3 {
-        filter: contrast(50%) brightness(50%);
+        filter: contrast(100%) brightness(100%);
       }
     }
   }
