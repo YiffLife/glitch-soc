@@ -1,13 +1,34 @@
 // Tell UI to use selected colors
-$ui-base-color: #503255;                  // Darkest
+$ui-base-color: #4e2e54;                  // Darkest
 $ui-base-lighter-color: lighten($ui-base-color, 26%); // Lighter darkest
 $ui-primary-color: #c19ec6;            // Lighter
 $ui-secondary-color: #e5dbe7;        // Lightest
 $ui-highlight-color: #cb2bd9;
 $blurple-500: #cb2bd9;
-$classic-highlight-color: #cb2bd9;
+$classic-highlight-color: #911C9C;
 
-$ui-button-background-color: #cb2bd9;
-$ui-button-focus-background-color: #7d2885;
+$ui-button-background-color: #911C9C;
+$ui-button-focus-background-color: #cb2bd9;
+
+.button {
+    background-color:#911C9C;
+    color:#fff;
+  
+    &:hover, &:focus, &:disabled {
+      background-color:#cb2bd9;
+    }
+}
+
+.dropdown-button {
+	color: #fff;
+}
+
+.compose-form__actions .icon-button {
+	color: #fff;
+}
+
+.compose-form .spoiler-input__input {
+	color: #fff;
+}
 
 @import 'flavours/glitch/styles/contrast';
