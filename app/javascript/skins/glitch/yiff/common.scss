@@ -1,14 +1,14 @@
 // Tell UI to use selected colors
-$ui-base-color: #4e2e54;                  // Darkest
+$ui-base-color: #8d5996;                  // Darkest
 $ui-base-lighter-color: lighten($ui-base-color, 26%); // Lighter darkest
 $ui-primary-color: #c19ec6;            // Lighter
 $ui-secondary-color: #e5dbe7;        // Lightest
-$ui-highlight-color: #cb2bd9;
-$blurple-500: #cb2bd9;
+$ui-highlight-color: #fff;
+$blurple-500: #fff;
 $classic-highlight-color: #911C9C;
 
 $ui-button-background-color: #911C9C;
-$ui-button-focus-background-color: #cb2bd9;
+$ui-button-focus-background-color: #fff;
 
 .button {
     background-color:#911C9C;
