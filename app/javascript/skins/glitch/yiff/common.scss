@@ -3,12 +3,12 @@ $ui-base-color: #65396c;                  // Darkest
 $ui-base-lighter-color: lighten($ui-base-color, 26%); // Lighter darkest
 $ui-primary-color: #c19ec6;            // Lighter
 $ui-secondary-color: #e5dbe7;        // Lightest
-$ui-highlight-color: #fff;
+$ui-highlight-color: #fca1ff;
 $blurple-500: #fff;
 $classic-highlight-color: #911C9C;
 
 $ui-button-background-color: #911C9C;
-$ui-button-focus-background-color: #fff;
+$ui-button-focus-background-color: #fca1ff;
 
 .button {
     background-color:#911C9C;
