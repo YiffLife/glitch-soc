@@ -1,22 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { List as ImmutableList, Map as ImmutableMap } from 'immutable';
 
-import { toServerSideType } from 'mastodon/utils/filters';
-
 import { me } from '../initial_state';
 
+import { getFilters } from './filters';
+
 export { makeGetAccount } from "./accounts";
-
-const getFilters = createSelector([state => state.get('filters'), (_, { contextType }) => contextType], (filters, contextType) => {
-  if (!contextType) {
-    return null;
-  }
-
-  const now = new Date();
-  const serverSideType = toServerSideType(contextType);
-
-  return filters.filter(filter => filter.get('context').includes(serverSideType) && (filter.get('expires_at') === null || filter.get('expires_at') > now));
-});
 
 export const makeGetStatus = () => {
   return createSelector(
@@ -101,29 +90,6 @@ export const makeGetReport = () => createSelector([
   (_, base) => base,
   (state, _, targetAccountId) => state.getIn(['accounts', targetAccountId]),
 ], (base, targetAccount) => base.set('target_account', targetAccount));
-
-export const getAccountGallery = createSelector([
-  (state, id) => state.getIn(['timelines', `account:${id}:media`, 'items'], ImmutableList()),
-  state       => state.get('statuses'),
-  (state, id) => state.getIn(['accounts', id]),
-], (statusIds, statuses, account) => {
-  let medias = ImmutableList();
-
-  statusIds.forEach(statusId => {
-    const status = statuses.get(statusId).set('account', account);
-    medias = medias.concat(status.get('media_attachments').map(media => media.set('status', status)));
-  });
-
-  return medias;
-});
-
-export const getAccountHidden = createSelector([
-  (state, id) => state.getIn(['accounts', id, 'hidden']),
-  (state, id) => state.getIn(['relationships', id, 'following']) || state.getIn(['relationships', id, 'requested']),
-  (state, id) => id === me,
-], (hidden, followingOrRequested, isSelf) => {
-  return hidden && !(isSelf || followingOrRequested);
-});
 
 export const getStatusList = createSelector([
   (state, type) => state.getIn(['status_lists', type, 'items']),
