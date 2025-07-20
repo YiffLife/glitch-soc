@@ -1,3 +1,5 @@
+@use '@/styles/contrast';
+
 // Tell UI to use selected colors
 $ui-base-color: #65396c;                  // Darkest
 $ui-base-lighter-color: lighten($ui-base-color, 26%); // Lighter darkest
@@ -31,4 +33,5 @@ $ui-button-focus-background-color: #fca1ff;
 	color: #ff1;
 }
 
-@import 'flavours/glitch/styles/contrast';
+// deprecated
+// @import 'flavours/glitch/styles/contrast';
