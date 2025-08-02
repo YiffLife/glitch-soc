@@ -1,5 +1,3 @@
-@use '@/flavours/glitch/styles/contrast';
-
 // Tell UI to use selected colors
 $ui-base-color: #65396c;                  // Darkest
 $ui-base-lighter-color: lighten($ui-base-color, 26%); // Lighter darkest
