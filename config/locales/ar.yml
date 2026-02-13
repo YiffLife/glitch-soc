@@ -14,7 +14,6 @@ ar:
       other: متابِعون
       two: متابِعان
       zero: لا متابِع
-    following: مُتابَع
     instance_actor_flash: هذا الحساب هو ممثل افتراضي يُستخدم لتمثيل الخادم نفسه ولا يمثل أي مستخدم فردي، يُستخدم لأغراض الاتحاد ولا ينبغي حظره.
     last_active: آخر نشاط
     link_verified_on: تم التحقق مِن ملكية هذا الرابط بتاريخ %{date}
@@ -215,6 +214,7 @@ ar:
         destroy_status: حذف المنشور
         destroy_unavailable_domain: حذف نطاق غير متوفر
         destroy_user_role: حذف الدور
+        destroy_username_block: حذف قاعدة اسم المستخدم
         disable_2fa_user: تعطيل 2FA
         disable_custom_emoji: تعطيل الإيموجي المخصص
         disable_relay: تعطيل خادم الترحيل
@@ -249,6 +249,7 @@ ar:
         update_report: تحديث التقرير
         update_status: تحديث المنشور
         update_user_role: تحديث الدور
+        update_username_block: تحديث قاعدة اسم المستخدم
       actions:
         approve_appeal_html: وافق %{name} على استئناف الطعن بشأن قرار الإشراف من %{target}
         approve_user_html: وافق %{name} على تسجيل %{target}
@@ -887,7 +888,6 @@ ar:
         title: عدم السماح مبدئيا لمحركات البحث بفهرسة الملفات التعريفية للمستخدمين
       discovery:
         follow_recommendations: اتبع التوصيات
-        preamble: يُعد إتاحة رؤية المحتوى المثير للاهتمام أمرًا ضروريًا لجذب مستخدمين جدد قد لا يعرفون أي شخص في Mastodon. تحكم في كيفية عمل ميزات الاكتشاف المختلفة على خادمك الخاص.
         privacy: الخصوصية
         profile_directory: دليل الصفحات التعريفية
         public_timelines: الخيوط الزمنية العامة
@@ -898,6 +898,10 @@ ar:
         all: للجميع
         disabled: لا أحد
         users: للمستخدمين المتصلين محليا
+      landing_page:
+        values:
+          about: عن
+          trends: المتداوَلة
       registrations:
         moderation_recommandation: الرجاء التأكد من أن لديك فريق إشراف كافي وفعال قبل فتح التسجيلات للجميع!
         preamble: تحكّم في مَن الذي يمكنه إنشاء حساب على خادمك الخاص.
@@ -951,6 +955,7 @@ ar:
       no_status_selected: لم يطرأ أي تغيير على أي منشور بما أنه لم يتم اختيار أي واحد
       open: افتح المنشور
       original_status: المنشور الأصلي
+      quotes: الاقتباسات
       reblogs: المعاد تدوينها
       replied_to_html: تم الرد على %{acct_link}
       status_changed: عُدّل المنشور
@@ -958,6 +963,7 @@ ar:
       title: منشورات الحساب - @%{name}
       trending: المتداولة
       view_publicly: رؤية الجزء العلني
+      view_quoted_post: عرض المنشور المقتبس
       visibility: مدى الظهور
       with_media: تحتوي على وسائط
     strikes:
@@ -1157,6 +1163,24 @@ ar:
           zero: مستخدَم من قِبل %{count} شخص خلال الأسبوع الماضي
       title: التوصيات والرائجة
       trending: المتداولة
+    username_blocks:
+      add_new: إضافة جديد
+      block_registrations: حظر التسجيلات
+      comparison:
+        contains: يحتوي على
+        equals: يساوي
+      contains_html: تحوي %{string}
+      created_msg: تم إنشاء قاعدة اسم المستخدم بنجاح
+      delete: حذف
+      edit:
+        title: تعديل قاعدة اسم المستخدم
+      matches_exactly_html: تحوي %{string}
+      new:
+        create: إنشاء قاعدة
+        title: إنشاء قاعدة اسم مستخدم جديدة
+      not_permitted: غير مسموح به
+      title: قواعد اسم المستخدم
+      updated_msg: تم تحديث قاعدة اسم المستخدم بنجاح
     warning_presets:
       add_new: إضافة واحد جديد
       delete: حذف
@@ -1233,10 +1257,8 @@ ar:
     hint_html: إذا كنت ترغب في الانتقال من حساب آخر إلى هذا الحساب الحالي، يمكنك إنشاء اسم مستعار هنا، والذي هو مطلوب قبل أن تتمكن من المضي قدما في نقل متابِعيك من الحساب القديم إلى هذا الحساب. هذا الإجراء بحد ذاته هو <strong>غير مؤذي و قابل للعكس</strong>. <strong>تتم بداية تهجير الحساب من الحساب القديم</strong>.
     remove: إلغاء ربط الكنية
   appearance:
-    advanced_web_interface: واجهة الويب المتقدمة
-    advanced_web_interface_hint: 'إذا كنت ترغب في استخدام عرض شاشتك بأكمله، فواجهة الويب المتقدمة تسمح لك بضبط العديد من الأعمدة المختلفة لرؤية أكبر قدر من المعلومات التي ترغب فيها في آن واحد: الخيط الرئيسي والإشعارات والخيط الزمني الفدرالي وأي عدد من القوائم والوسوم.'
+    advanced_settings: الإعدادات المتقدمة
     animations_and_accessibility: الإتاحة والحركة
-    confirmation_dialogs: نوافذ التأكيد
     discovery: الاستكشاف
     localization:
       body: ماستدون يُترجِمه متطوّعون.
@@ -1353,6 +1375,12 @@ ar:
     hint_html: "<strong>توصية:</strong> لن نطلب منك ثانية كلمتك السرية في غضون الساعة اللاحقة."
     invalid_password: الكلمة السرية خاطئة
     prompt: أكِّد الكلمة السرية للمواصلة
+  color_scheme:
+    auto: تلقائي
+    dark: داكن
+    light: فاتح
+  contrast:
+    auto: تلقائي
   crypto:
     errors:
       invalid_key: ليس بمفتاح Ed25519 أو Curve25519 صالح
@@ -1425,6 +1453,10 @@ ar:
     basic_information: معلومات أساسية
     hint_html: "<strong>قم بتخصيص ما سيراه الناس في ملفك الشخصي العام وبجوار منشوراتك.</strong> من المرجح أن يتابعك أشخاص آخرون ويتفاعلون معك إن كان لديك صفحة شخصية مملوء وصورة."
     other: أخرى
+  emoji_styles:
+    auto: تلقائي
+    native: محلي
+    twemoji: Twemoji
   errors:
     '400': الطلب الذي قدمته غير صالح أو أنّ شكله غير سليم.
     '403': ليس لك الصلاحيات الكافية لعرض هذه الصفحة.
@@ -1714,6 +1746,9 @@ ar:
       expires_at: تنتهي مدة صلاحيتها في
       uses: عدد الاستخدامات
     title: دعوة أشخاص
+  link_preview:
+    potentially_sensitive_content:
+      hide_button: إخفاء
   lists:
     errors:
       limit: لقد بلغت الحد الأقصى للقوائم
@@ -1778,7 +1813,6 @@ ar:
       disabled_account: لن يكون حسابك الحالي قابلا للاستخدام بشكل كامل بعد ذلك، ولكن سيكون لديك حق الوصول إلى تصدير البيانات وكذلك إعادة التنشيط.
       followers: تقوم هذه العملية بنقل كافة المُتابِعين مِن الحساب الحالي إلى الحساب الجديد
       only_redirect_html: بدلاً من ذلك، يمكنك <a href="%{path}">أن تضع فقط إعادة توجيه على ملفك الشخصي</a>.
-      other_data: لن يتم نقل أية بيانات أخرى تلقائيا
       redirect: سيتم تحديث ملفك التعريفي الحالي مع إشعار إعادة توجيه وسيتم استبعاده من عمليات البحث
   moderation:
     title: الإشراف
@@ -1814,6 +1848,10 @@ ar:
       title: إشارة جديدة
     poll:
       subject: انتهى استطلاع %{name} للرأي
+    quote:
+      body: 'قام %{name} باقتباس منشورك:'
+      subject: اقتبس %{name} منشورا لك
+      title: اقتباس جديد
     reblog:
       body: 'قام %{name} بترقية منشورك:'
       subject: قام %{name} بإعادة نشر منشورك
@@ -1862,6 +1900,7 @@ ar:
       self_vote: لا يمكنك التصويت في استطلاعاتك الخاصة
       too_few_options: يجب أن يحتوي على أكثر من عنصر واحد
       too_many_options: لا يمكنه أن يحتوي أكثر مِن %{max} عناصر
+    vote: صَوّت
   preferences:
     other: إعدادات أخرى
     posting_defaults: التفضيلات الافتراضية للنشر
@@ -2029,6 +2068,9 @@ ar:
         zero: "%{count} فيديوهات"
     boosted_from_html: تم إعادة ترقيته مِن %{acct_link}
     content_warning: 'تحذير عن المحتوى: %{warning}'
+    content_warnings:
+      hide: إخفاء المنشور
+      show: إظهار المزيد
     default_language: نفس لغة الواجهة
     disallowed_hashtags:
       few: 'يحتوي على وسوم غير مسموح بها: %{tags}'
@@ -2040,6 +2082,7 @@ ar:
     edited_at_html: عُدّل في %{date}
     errors:
       in_reply_not_found: إنّ المنشور الذي تحاول الرد عليه غير موجود على ما يبدو.
+      quoted_status_not_found: لا يبدو أن المنشور الذي تحاول اقتباسه موجود.
     over_character_limit: تم تجاوز حد الـ %{max} حرف المسموح بها
     pin_errors:
       direct: لا يمكن تثبيت المنشورات التي يراها فقط المتسخدمون المشار إليهم
@@ -2047,27 +2090,23 @@ ar:
       ownership: لا يمكن تثبيت منشور نشره شخص آخر
       reblog: لا يمكن تثبيت إعادة نشر
     quote_policies:
-      followers: المتابعين والمستخدمين المذكورين
-      nobody: المستخدمين المذكورين فقط
-      public: الجميع
+      followers: للمتابِعين فقط
+      nobody: لي فقط
+      public: أيا كان
     title: '%{name}: "%{quote}"'
     visibilities:
-      direct: مباشرة
-      private: لمتابِعيك فقط
-      private_long: اعرضه لمتابعيك فقط
+      direct: إشارة خاصة
+      private: للمتابِعين فقط
       public: للعامة
-      public_long: يمكن للجميع رؤية منشوراتك
-      unlisted: غير مُدرَج
-      unlisted_long: يُمكن لأيٍ كان رُؤيتَه و لكن لن يُعرَض على الخيوط العامة
+      public_long: أي شخص على أو خارج ماستدون
+      unlisted: للعامة دون صخب
   statuses_cleanup:
     enabled: حذف المنشورات القديمة تلقائياً
     enabled_hint: حذف منشوراتك تلقائياً بمجرد أن تصل إلى عتبة عمرية محددة، إلا إذا كانت مطابقة لأحد الاستثناءات أدناه
     exceptions: الاستثناءات
-    explanation: لأن حذف المنشورات عملية مكلفة، يتم ذلك ببطء مع مرور الوقت عندما يكون الخادم غير مشغول. لهذا السبب، عملية حذف مشاركاتك قد تتأخر قليلا بالرغم من تحديدك للمدة.
     ignore_favs: تجاهل المفضلة
     ignore_reblogs: تجاهل المعاد نشرها
     interaction_exceptions: الاستثناءات المبنية على التفاعلات
-    interaction_exceptions_explanation: لاحظ أنه ليس هناك أي ضمان لحذف المنشورات إن كانت تحت عتبة المفضلة أو عدد إعادات المشاركات بعد تعديها لتلك العتبة.
     keep_direct: الاحتفاظ بالرسائل المباشرة
     keep_direct_hint: لن يقوم بحذف أي من رسائلك المباشرة
     keep_media: الاحتفاظ بالمنشورات ذات وسائط مرفقة
@@ -2108,11 +2147,6 @@ ar:
     past_preamble_html: لقد غيرنا شروط خدمتنا منذ زيارتكم الأخيرة. نشجعكم على مراجعة الشروط المحدثة.
     review_link: مراجعة شروط الخدمة
     title: شروط خدمة النطاق %{domain} ستتغير
-  themes:
-    contrast: ماستدون (تباين عالٍ)
-    default: ماستدون (داكن)
-    mastodon-light: ماستدون (فاتح)
-    system: تلقائي (استخدم سمة النظام)
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
@@ -2284,6 +2318,7 @@ ar:
       error: حدثت مشكلة ما خلال حذف مفتاح أمانك. الرجاء المحاولة مرة أخرى.
       success: تم حذف مفتاح الأمان الخاص بك.
     invalid_credential: مفتاح الأمان غير صالح
+    nickname: الكنية
     nickname_hint: أدخل اسم مستعار لمفتاح الأمان الجديد الخاص بك
     not_enabled: لم تقم بتفعيل WebAuthn بعد
     not_supported: هذا المتصفح لا يدعم مفاتيح الأمان

@@ -5,7 +5,6 @@ import path from 'node:path';
 import js from '@eslint/js';
 import { globalIgnores } from 'eslint/config';
 import formatjs from 'eslint-plugin-formatjs';
-// @ts-expect-error -- No typings
 import importPlugin from 'eslint-plugin-import';
 import jsdoc from 'eslint-plugin-jsdoc';
 import jsxA11Y from 'eslint-plugin-jsx-a11y';
@@ -199,10 +198,12 @@ export default tseslint.config([
     'tmp/**/*',
     'vendor/**/*',
     'streaming/**/*',
+    '.bundle/**/*',
+    'storybook-static/**/*',
   ]),
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
-  reactHooks.configs['recommended-latest'],
+  reactHooks.configs.flat.recommended,
   jsxA11Y.flatConfigs.recommended,
   importPlugin.flatConfigs.react,
   // @ts-expect-error -- For some reason the formatjs package exports an empty object?
@@ -309,6 +310,7 @@ export default tseslint.config([
       'react/jsx-tag-spacing': 'error',
       'react/jsx-wrap-multilines': 'error',
       'react/self-closing-comp': 'error',
+      'react/button-has-type': 'error',
     },
   },
   {
@@ -351,7 +353,7 @@ export default tseslint.config([
       tseslint.configs.stylisticTypeChecked,
       react.configs.flat.recommended,
       react.configs.flat['jsx-runtime'],
-      reactHooks.configs['recommended-latest'],
+      reactHooks.configs.flat.recommended,
       jsxA11Y.flatConfigs.recommended,
       importPlugin.flatConfigs.react,
       importPlugin.flatConfigs.typescript,
@@ -374,6 +376,8 @@ export default tseslint.config([
       'import/no-default-export': 'warn',
 
       'jsdoc/require-jsdoc': 'off',
+      'jsdoc/require-param': 'off',
+      'jsdoc/require-returns': 'off',
 
       'react/prefer-stateless-function': 'warn',
       'react/function-component-definition': [
@@ -419,6 +423,7 @@ export default tseslint.config([
           allowNumber: true,
         },
       ],
+      '@typescript-eslint/non-nullable-type-assertion-style': 'off',
     },
   },
   {
@@ -426,6 +431,12 @@ export default tseslint.config([
 
     languageOptions: {
       globals: globals.vitest,
+    },
+  },
+  {
+    files: ['**/*.test.*'],
+    rules: {
+      'no-global-assign': 'off',
     },
   },
   {
@@ -439,6 +450,7 @@ export default tseslint.config([
     rules: {
       '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/no-useless-default-assignment': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
     },
   },

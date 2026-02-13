@@ -12,6 +12,8 @@ class Auth::SessionsController < Devise::SessionsController
   skip_before_action :require_functional!
   skip_before_action :update_user_sign_in
 
+  around_action :preserve_stored_location, only: :destroy, if: :continue_after?
+
   prepend_before_action :check_suspicious!, only: [:create]
 
   include Auth::TwoFactorAuthenticationConcern
@@ -31,11 +33,9 @@ class Auth::SessionsController < Devise::SessionsController
   end
 
   def destroy
-    tmp_stored_location = stored_location_for(:user)
     super
     session.delete(:challenge_passed_at)
     flash.delete(:notice)
-    store_location_for(:user, tmp_stored_location) if continue_after?
   end
 
   def webauthn_options
@@ -95,6 +95,12 @@ class Auth::SessionsController < Devise::SessionsController
   end
 
   private
+
+  def preserve_stored_location
+    original_stored_location = stored_location_for(:user)
+    yield
+    store_location_for(:user, original_stored_location)
+  end
 
   def check_suspicious!
     user = find_user
@@ -191,14 +197,14 @@ class Auth::SessionsController < Devise::SessionsController
     "2fa_auth_attempts:#{user.id}:#{Time.now.utc.hour}"
   end
 
-  def respond_to_on_destroy
+  def respond_to_on_destroy(**)
     respond_to do |format|
       format.json do
         render json: {
           redirect_to: after_sign_out_path_for(resource_name),
         }, status: 200
       end
-      format.all { super }
+      format.all { super(**) }
     end
   end
 end
