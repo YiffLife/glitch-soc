@@ -1,10 +1,18 @@
-// Tell UI to use selected colors
-$ui-base-color: #503255;                  // Darkest
-$ui-base-lighter-color: lighten($ui-base-color, 26%); // Lighter darkest
-$ui-primary-color: #c19ec6;            // Lighter
-$ui-secondary-color: #e5dbe7;        // Lightest
-$ui-highlight-color: #cb2bd9;
+@use '@/styles/application';
 
-// @import 'styles/contrast';
+[data-color-scheme='dark'],
+html:not([data-color-scheme]) {
+  --color-bg-primary: #503255;  // Very dark purple
+  --color-bg-secondary: #6a4470;  // Lighter purple
+  --color-text-primary: #f1def5;  // Light purple
+  --color-text-secondary: #fef9ff;  // Lightest
+  --color-bg-brand-base: #cb2bd9;  // Highlight
+}
 
-// @use '@/flavours/vanilla/styles/contrast';
+[data-color-scheme='light'] {
+  --color-bg-primary: #f3d0fb;  // Light background
+  --color-bg-secondary: #f2d7f8;  // Lighter secondary
+  --color-text-primary: #503255;  // Dark text
+  --color-text-secondary: #7a5a8a;  // Medium text
+  --color-bg-brand-base: #cb2bd9;  // Highlight
+}
