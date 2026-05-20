@@ -28,9 +28,10 @@ class Api::V1Alpha::CollectionsController < Api::BaseController
     cache_if_unauthenticated!
     authorize @account, :index_collections?
 
-    render json: @collections, each_serializer: REST::CollectionSerializer, adapter: :json
+    presenter = CollectionsPresenter.new(collections: @collections)
+    render json: presenter, serializer: REST::CollectionsWithAccountPreviewsSerializer
   rescue Mastodon::NotPermittedError
-    render json: { collections: [] }
+    render json: { collections: [], partial_accounts: [] }
   end
 
   def show
@@ -72,10 +73,11 @@ class Api::V1Alpha::CollectionsController < Api::BaseController
 
   def set_collections
     @collections = @account.collections
-                           .with_tag
-                           .order(created_at: :desc)
-                           .offset(offset_param)
-                           .limit(limit_param(DEFAULT_COLLECTIONS_LIMIT))
+      .with_tag
+      .preload(top_items: :account)
+      .order(created_at: :desc)
+      .offset(offset_param)
+      .limit(limit_param(DEFAULT_COLLECTIONS_LIMIT))
     @collections = @collections.discoverable unless @account == current_account
   end
 

@@ -9,24 +9,20 @@ on:
       - 'package.json'
       - 'yarn.lock'
       - '.nvmrc'
-      - '.prettier*'
       - 'stylelint.config.js'
       - '**/*.css'
       - '**/*.scss'
       - '.github/workflows/lint-css.yml'
-      - '.github/stylelint-matcher.json'
 
   pull_request:
     paths:
       - 'package.json'
       - 'yarn.lock'
       - '.nvmrc'
-      - '.prettier*'
       - 'stylelint.config.js'
       - '**/*.css'
       - '**/*.scss'
       - '.github/workflows/lint-css.yml'
-      - '.github/stylelint-matcher.json'
 
 jobs:
   lint:

@@ -24,7 +24,7 @@ RSpec.describe 'Using OAuth from an external app' do
       subject
 
       # It presents the user with an authorization page
-      expect(page).to have_content(oauth_authorize_text)
+      expect(page).to have_text(oauth_authorize_text)
 
       # It grants the app access to the account
       expect { click_on oauth_authorize_text }
@@ -38,7 +38,7 @@ RSpec.describe 'Using OAuth from an external app' do
       subject
 
       # It presents the user with an authorization page
-      expect(page).to have_content(oauth_deny_text)
+      expect(page).to have_text(oauth_deny_text)
 
       # It does not grant the app access to the account
       expect { click_on oauth_deny_text }
@@ -98,27 +98,26 @@ RSpec.describe 'Using OAuth from an external app' do
       context 'when using plain code challenge method' do
         let(:pkce_code_challenge_method) { 'plain' }
 
-        it 'does not include the PKCE values in the response' do
+        it 'shows an error message and does not include the PKCE values or authorize button' do
           subject
 
-          expect(page).to have_no_css('.oauth-prompt input[name=code_challenge]')
-          expect(page).to have_no_css('.oauth-prompt input[name=code_challenge_method]')
-        end
-
-        it 'does not include the authorize button' do
-          subject
-
-          expect(page).to have_no_css('.oauth-prompt button[type="submit"]')
-        end
-
-        it 'includes an error message' do
-          subject
+          expect(page)
+            .to have_no_css('.oauth-prompt input[name=code_challenge]')
+            .and have_no_css('.oauth-prompt input[name=code_challenge_method]')
+            .and have_no_css('.oauth-prompt button[type="submit"]')
 
           within '.form-container .flash-message' do
-            # FIXME: Replace with doorkeeper.errors.messages.invalid_code_challenge_method.one for Doorkeeper > 5.8.0
-            # see: https://github.com/doorkeeper-gem/doorkeeper/pull/1747
-            expect(page).to have_content(I18n.t('doorkeeper.errors.messages.invalid_code_challenge_method'))
+            expect(page)
+              .to have_text(doorkeeper_invalid_code_message)
           end
+        end
+
+        def doorkeeper_invalid_code_message
+          I18n.t(
+            'doorkeeper.errors.messages.invalid_code_challenge_method',
+            challenge_methods: Doorkeeper.configuration.pkce_code_challenge_methods.join(', '),
+            count: Doorkeeper.configuration.pkce_code_challenge_methods.length
+          )
         end
       end
 
@@ -134,7 +133,7 @@ RSpec.describe 'Using OAuth from an external app' do
           subject
 
           # It presents the user with the 2FA setup page
-          expect(page).to have_content(I18n.t('two_factor_authentication.role_requirement', domain: local_domain_uri.host))
+          expect(page).to have_text(I18n.t('two_factor_authentication.role_requirement', domain: local_domain_uri.host))
           click_on I18n.t('otp_authentication.setup')
 
           # Fill in challenge form
@@ -151,7 +150,7 @@ RSpec.describe 'Using OAuth from an external app' do
           click_on I18n.t('two_factor_authentication.resume_app_authorization')
 
           # It presents the user with an authorization page
-          expect(page).to have_content(oauth_authorize_text)
+          expect(page).to have_text(oauth_authorize_text)
 
           # It grants the app access to the account
           expect { click_on oauth_authorize_text }
@@ -178,15 +177,15 @@ RSpec.describe 'Using OAuth from an external app' do
       visit "/oauth/authorize?#{params.to_query}"
 
       # It presents the user with a log-in page
-      expect(page).to have_content(I18n.t('auth.login'))
+      expect(page).to have_text(I18n.t('auth.login'))
 
       # Failing to log-in presents the form again
       fill_in_auth_details(email, 'wrong password')
-      expect(page).to have_content(I18n.t('auth.login'))
+      expect(page).to have_text(I18n.t('auth.login'))
 
       # Logging in redirects to an authorization page
       fill_in_auth_details(email, password)
-      expect(page).to have_content(oauth_authorize_text)
+      expect(page).to have_text(oauth_authorize_text)
 
       # It grants the app access to the account
       expect { click_on oauth_authorize_text }
@@ -200,15 +199,15 @@ RSpec.describe 'Using OAuth from an external app' do
       visit "/oauth/authorize?#{params.to_query}"
 
       # It presents the user with a log-in page
-      expect(page).to have_content(I18n.t('auth.login'))
+      expect(page).to have_text(I18n.t('auth.login'))
 
       # Failing to log-in presents the form again
       fill_in_auth_details(email, 'wrong password')
-      expect(page).to have_content(I18n.t('auth.login'))
+      expect(page).to have_text(I18n.t('auth.login'))
 
       # Logging in redirects to an authorization page
       fill_in_auth_details(email, password)
-      expect(page).to have_content(oauth_authorize_text)
+      expect(page).to have_text(oauth_authorize_text)
 
       # It does not grant the app access to the account
       expect { click_on oauth_deny_text }
@@ -225,23 +224,23 @@ RSpec.describe 'Using OAuth from an external app' do
         visit "/oauth/authorize?#{params.to_query}"
 
         # It presents the user with a log-in page
-        expect(page).to have_content(I18n.t('auth.login'))
+        expect(page).to have_text(I18n.t('auth.login'))
 
         # Failing to log-in presents the form again
         fill_in_auth_details(email, 'wrong password')
-        expect(page).to have_content(I18n.t('auth.login'))
+        expect(page).to have_text(I18n.t('auth.login'))
 
         # Logging in redirects to a two-factor authentication page
         fill_in_auth_details(email, password)
-        expect(page).to have_content(I18n.t('simple_form.hints.sessions.otp'))
+        expect(page).to have_text(I18n.t('simple_form.hints.sessions.otp'))
 
         # Filling in an incorrect two-factor authentication code presents the form again
         fill_in_otp_details('wrong')
-        expect(page).to have_content(I18n.t('simple_form.hints.sessions.otp'))
+        expect(page).to have_text(I18n.t('simple_form.hints.sessions.otp'))
 
         # Filling in the correct TOTP code redirects to an app authorization page
         fill_in_otp_details(user.current_otp)
-        expect(page).to have_content(oauth_authorize_text)
+        expect(page).to have_text(oauth_authorize_text)
 
         # It grants the app access to the account
         expect { click_on oauth_authorize_text }
@@ -255,23 +254,23 @@ RSpec.describe 'Using OAuth from an external app' do
         visit "/oauth/authorize?#{params.to_query}"
 
         # It presents the user with a log-in page
-        expect(page).to have_content(I18n.t('auth.login'))
+        expect(page).to have_text(I18n.t('auth.login'))
 
         # Failing to log-in presents the form again
         fill_in_auth_details(email, 'wrong password')
-        expect(page).to have_content(I18n.t('auth.login'))
+        expect(page).to have_text(I18n.t('auth.login'))
 
         # Logging in redirects to a two-factor authentication page
         fill_in_auth_details(email, password)
-        expect(page).to have_content(I18n.t('simple_form.hints.sessions.otp'))
+        expect(page).to have_text(I18n.t('simple_form.hints.sessions.otp'))
 
         # Filling in an incorrect two-factor authentication code presents the form again
         fill_in_otp_details('wrong')
-        expect(page).to have_content(I18n.t('simple_form.hints.sessions.otp'))
+        expect(page).to have_text(I18n.t('simple_form.hints.sessions.otp'))
 
         # Filling in the correct TOTP code redirects to an app authorization page
         fill_in_otp_details(user.current_otp)
-        expect(page).to have_content(oauth_authorize_text)
+        expect(page).to have_text(oauth_authorize_text)
 
         # It does not grant the app access to the account
         expect { click_on oauth_deny_text }
