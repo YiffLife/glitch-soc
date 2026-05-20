@@ -2,6 +2,7 @@
 
 [data-color-scheme='dark'],
 html:not([data-color-scheme]) {
+  // dark theme overrides
   --color-bg-primary: #503255;  // Very dark purple
   --color-bg-secondary: #6a4470;  // Lighter purple
   --color-text-primary: #f1def5;  // Light purple
@@ -10,6 +11,7 @@ html:not([data-color-scheme]) {
 }
 
 [data-color-scheme='light'] {
+  // light theme overrides
   --color-bg-primary: #f3d0fb;  // Light background
   --color-bg-secondary: #f2d7f8;  // Lighter secondary
   --color-text-primary: #503255;  // Dark text
