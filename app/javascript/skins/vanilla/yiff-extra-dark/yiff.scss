@@ -1,0 +1,20 @@
+@use '@/styles/application';
+
+[data-color-scheme='dark'],
+html:not([data-color-scheme]) {
+  // dark theme overrides
+  --color-bg-primary: #37153c;  // Very dark purple
+  --color-bg-secondary: #64256e;  // Lighter purple
+  --color-text-primary: #cda6d5;  // Light purple
+  --color-text-secondary: #e4cbe9;  // Lightest
+  --color-bg-brand-base: #cb2bd9;  // Highlight
+}
+
+[data-color-scheme='light'] {
+  // light theme overrides
+  --color-bg-primary: #f3d0fb;  // Light background
+  --color-bg-secondary: #f2d7f8;  // Lighter secondary
+  --color-text-primary: #503255;  // Dark text
+  --color-text-secondary: #7a5a8a;  // Medium text
+  --color-bg-brand-base: #cb2bd9;  // Highlight
+}
